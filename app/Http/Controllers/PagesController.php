@@ -13,4 +13,9 @@ class PagesController extends Controller
     {
         return view('authentication.login');
     }
+
+    public function register()
+    {
+        return view('authentication.register');
+    }
 }

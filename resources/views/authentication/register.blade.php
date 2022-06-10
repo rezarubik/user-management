@@ -37,31 +37,40 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back! </h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Create an Account! </h1>
                                     </div>
-                                    <form class="user" action="{{route('login')}}" method="post">
+                                    <form class="user" method="post" action="{{route('register.store')}}">
                                         @csrf
-                                        <div class="form-group">
-                                            <input type="email" name="email" class="form-control form-control-user @error('email') is-invalid  @enderror"" id=" exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..." required autofocus value="{{old('email')}}">
-                                            @error('email')
-                                            <div class="invalid-feedback">
-                                                {{$message }}
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <input type="text" name="firstname" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name">
                                             </div>
-                                            @enderror
+                                            <div class="col-sm-6">
+                                                <input type="text" name="lastname" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name">
+                                            </div>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" name="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" required>
+                                            <input type="email" name="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">
                                         </div>
-                                        <button href="index.html" class="btn btn-primary btn-user btn-block" type="submit">
-                                            Login
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <input type="password" name="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="password" name="confirm_password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                            Register Account
                                         </button>
+                                        <!-- <hr> -->
+                                        <!-- <a href="index.html" class="btn btn-google btn-user btn-block">
+                                            <i class="fab fa-google fa-fw"></i> Register with Google
+                                        </a>
+                                        <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                                            <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
+                                        </a> -->
                                     </form>
-                                    <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="{{route('register')}}">Create an Account!</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>

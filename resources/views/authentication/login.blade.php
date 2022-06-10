@@ -38,8 +38,24 @@
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back! </h1>
+                                        @if(Session::has('status'))
+                                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                            <strong>Viola!</strong> {{Session::get('status')}}
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        @endif
+                                        @if(Session::has('error'))
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <strong>Sorry!</strong> {{Session::get('error')}}
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        @endif
                                     </div>
-                                    <form class="user" action="{{route('login')}}" method="post">
+                                    <form class="user" action="{{route('login.auth.custom')}}" method="post">
                                         @csrf
                                         <div class="form-group">
                                             <input type="email" name="email" class="form-control form-control-user @error('email') is-invalid  @enderror"" id=" exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..." required autofocus value="{{old('email')}}">
@@ -60,7 +76,7 @@
                                         <a class="small" href="forgot-password.html">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="{{route('register')}}">Create an Account!</a>
+                                        <a class="small" href="{{route('register_form')}}">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>
