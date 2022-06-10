@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -20,21 +20,16 @@ class LoginController extends Controller
     public function authenticate(Request $request)
     {
         $check_user = User::where('email', $request->email)->first();
-
         if (!$check_user) {
-            return response()->json([
-                'status' => false,
-                'message' => 'User not found'
-            ]);
+            return redirect()->route('login')->with('error', 'Email does not exists, please register')->withInput();
         } else if (!$check_user->is_verify) {
-            return redirect()->route('login')->with('error', 'Please verified you account');
+            return redirect()->route('login')->with('error', 'Please verified you account')->withInput();
         }
-        // else if (!$check_user->is_admin) {
-        //     return response()->json([
-        //         'status' => false,
-        //         'message' => `Sorry, You don't have access`
-        //     ]);
-        // }
+
+
+        if (!Hash::check($request->password, $check_user->password)) {
+            return redirect()->route('login')->with('error', 'Sorry, wrong password')->withInput();
+        }
 
         $credentials = $request->validate([
             'email' => 'required',
@@ -42,10 +37,11 @@ class LoginController extends Controller
         ]);
         // return $credentials;
         if (!$credentials) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Sorry, wrong password!',
-            ]);
+            return redirect()->route('login')->with('error', 'Please check your email or password')->withInput();
+            // return response()->json([
+            //     'status' => false,
+            //     'message' => 'Sorry, wrong password!',
+            // ]);
         }
         if (Auth::attempt($credentials)) {
             // return 'success login';

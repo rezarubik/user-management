@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>@yield('title') - Bottle Union</title>
+    <title>@yield('title') - User Management</title>
 
     <!-- //start: CSS Section -->
     <!-- Custom fonts for this template-->

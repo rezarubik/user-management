@@ -58,7 +58,7 @@
                                     <form class="user" action="{{route('login.auth.custom')}}" method="post">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="email" name="email" class="form-control form-control-user @error('email') is-invalid  @enderror"" id=" exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..." required autofocus value="{{old('email')}}">
+                                            <input type="email" name="email" class="form-control form-control-user @error('email') is-invalid  @enderror" id=" exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..." required autofocus value="{{old('email')}}">
                                             @error('email')
                                             <div class="invalid-feedback">
                                                 {{$message }}
@@ -66,7 +66,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" name="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" required>
+                                            <input type="password" name="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
                                         </div>
                                         <button href="index.html" class="btn btn-primary btn-user btn-block" type="submit">
                                             Login

@@ -37,7 +37,21 @@
             </div>
         </div>
         <div class="card-body">
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-end">
+                    <form action="">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Enter search here.." name="search" value="{{request('search')}}">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             <div class="table-responsive">
+                @if($users->count())
                 <table class="table table-bordered" id="usersTable" width="100%" cellspacing="0">
                     <thead>
                         <th>Firstname</th>
@@ -58,15 +72,53 @@
                             <td>{{$user->is_verify}}</td>
                             <td>{{$user->created_at}}</td>
                             <td class="text-center">
-                                <a title="Detail" href="#" class="btn btn-secondary btn-circle btn-sm">
-                                    <i class="fas fa-eye"></i>
+                                <a title="Detail" class="btn btn-warning btn-circle btn-sm" href="{{route('dashboard.user.edit', $user->id)}}">
+                                    <i class="fas fa-pen"></i>
                                 </a>
+                                <form action="{{route('dashboard.user.destroy', $user->id)}}" method="post">
+                                    <button title="Delete" type="button" data-toggle="modal" data-target="#deleteUser{{$user->id}}" data-id="{{$user->id}}" class="btn btn-danger btn-circle btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
+                        <!-- //start Modal Delete -->
+                        <div class="modal fade" id="deleteUser{{$user->id}}" tabindex="-1" role="document" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <form enctype='multipart/form-data' action="{{route('dashboard.user.destroy', $user->id)}}" method="post">
+                                        @csrf
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Delete User {{$user->firstname}} {{$user->lastname}} </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <p>Are you sure want to delete user {{$user->firstname}} {{$user->lastname}}?</p>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //end Modal Delete -->
                         @endforeach
                     </tbody>
                 </table>
+                @else
+                <p class="text-center">Data not found</p>
+                @endif
+                <div class="d-flex justify-content-end">
+                    {{ $users->links() }}
+                </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -80,7 +132,7 @@
 <!-- Page level custom scripts -->
 <!-- <script src="{{asset('assets/js/demo/datatables-demo.js')}}"></script> -->
 
-<script>
+<!-- <script>
     $(document).ready(function() {
         $('#usersTable').DataTable({
             "aaSorting": [
@@ -88,5 +140,5 @@
             ]
         });
     });
-</script>
+</script> -->
 @endsection

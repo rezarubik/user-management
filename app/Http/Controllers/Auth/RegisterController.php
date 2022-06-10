@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +14,7 @@ class RegisterController extends Controller
     /**
      * NOTE: Store new registration
      */
-    public function store(Request $request)
+    public function store(RegisterRequest $request)
     {
         try {
             DB::beginTransaction();

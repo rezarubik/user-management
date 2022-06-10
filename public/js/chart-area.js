@@ -2,6 +2,46 @@
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
+let amount22 = document.querySelectorAll("#dataReal2").length;
+console.log(amount22)
+let resMonths2 = [];
+let resDatas2 = [];
+let allData2 = [];
+let consumseData2 = [];
+let consumseMonth2 = [];
+for (var i = 0; i < amount22; i++) {
+    var details = document.getElementsByClassName("dataReal2")[i].innerHTML;
+    var obj = JSON.parse(details);
+    resMonths2.push(obj.tanggal);
+    resDatas2.push(parseInt(obj.nilai));
+    allData2.push({
+        orders: resDatas2[i],
+        months: resMonths2[i],
+    })
+}
+const data2 = allData2.reduce(
+    (a, b) => {
+        const i = a.months.findIndex((x) => x === b.months);
+        const j = a.products.findIndex((y) => y.label === b.orders);
+        if (i === -1) {
+            a.months.push(b.months);
+        }
+        if (i === -1) {
+            a.products.push({
+                data: [b.orders],
+            });
+        } else {
+            a.products[i].data.push(b.orders);
+        }
+        return a;
+    },
+    { months: [], products: [] }
+);
+for(let i=0; i<data2.products.length; i++){
+    consumseData2.push(data2.products[i].data.reduce(tambah))
+    consumseMonth2.push(data2.months[i])
+};
+
 function number_format(number, decimals, dec_point, thousands_sep) {
   // *     example: number_format(1234.56, 2, ',', ' ');
   // *     return: '1 234,56'
@@ -32,7 +72,7 @@ var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: consumseMonth2,
     datasets: [{
       label: "Earnings",
       lineTension: 0.3,
@@ -46,9 +86,9 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+      data: consumseData2,
     }],
-  },
+    },
   options: {
     maintainAspectRatio: false,
     layout: {
@@ -69,16 +109,16 @@ var myLineChart = new Chart(ctx, {
           drawBorder: false
         },
         ticks: {
-          maxTicksLimit: 7
+          maxTicksLimit: 30
         }
       }],
       yAxes: [{
         ticks: {
-          maxTicksLimit: 5,
+          maxTicksLimit: 30,
           padding: 10,
           // Include a dollar sign in the ticks
           callback: function(value, index, values) {
-            return '$' + number_format(value);
+            return 'Rp ' + number_format(value);
           }
         },
         gridLines: {
@@ -110,9 +150,12 @@ var myLineChart = new Chart(ctx, {
       callbacks: {
         label: function(tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+          return datasetLabel + ': Rp ' + number_format(tooltipItem.yLabel);
         }
       }
     }
   }
 });
+function tambah(total, num) {
+    return total + num;
+}

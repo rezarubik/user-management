@@ -45,24 +45,62 @@
                         <div class="row">
                             <div class="col-md-6 col-xs-12">
                                 <div class="form-group">
+                                    <label for="region">Role</label>
+                                    <select multiple name="id_role[]" id="id_role" class="form-control selectpicker @error('id_role') is-invalid  @enderror" data-live-search="true" data-style="btn-light">
+                                        @foreach($roles as $role)
+                                        <option value="{{$role->name}}" {{(collect(old('id_role'))->contains($role->id)) ? 'selected' : ''}}>{{$role->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('id_role')
+                                    <div class="invalid-feedback">
+                                        {{$message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
                                     <label for="firstname">Firstname</label>
-                                    <input id="firstname" type="text" class="form-control" placeholder="Enter firstname here" name="firstname" required value="{{old('firstname')}}">
+                                    <input id="firstname" type="text" class="form-control @error('firstname') is-invalid  @enderror" placeholder="Enter firstname here" name="firstname" value="{{old('firstname')}}">
+                                    @error('firstname')
+                                    <div class="invalid-feedback">
+                                        {{$message }}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="lastname">Lastname</label>
-                                    <input id="lastname" type="text" class="form-control" placeholder="Enter lastname here" name="lastname" required value="{{old('lastname')}}">
+                                    <input id="lastname" type="text" class="form-control @error('lastname') is-invalid  @enderror" placeholder="Enter lastname here" name="lastname" value="{{old('lastname')}}">
+                                    @error('lastname')
+                                    <div class="invalid-feedback">
+                                        {{$message }}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input id="email" type="email" class="form-control" placeholder="Enter email here" name="email" required value="{{old('email')}}" autocomplete="off">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid  @enderror" placeholder="Enter email here" name="email" value="{{old('email')}}" autocomplete="off">
+                                    @error('email')
+                                    <div class="invalid-feedback">
+                                        {{$message }}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input id="password" type="password" class="form-control" placeholder="Enter password here" name="password" required value="" autocomplete="off">
+                                    <label for="">Password</label>
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid  @enderror" placeholder="Enter password here" name="password" value="" autocomplete="off">
+                                    @error('password')
+                                    <div class="invalid-feedback">
+                                        {{$message }}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="confirm">Confirmation Password</label>
-                                    <input id="confirm" type="password" class="form-control" placeholder="Enter confirm password here" name="confirm" required value="">
+                                    <input id="confirm" type="password" class="form-control @error('password') is-invalid  @enderror" placeholder="Enter confirm password here" name="confirm" value="">
+                                    @error('confirm')
+                                    <div class="invalid-feedback">
+                                        {{$message }}
+                                    </div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

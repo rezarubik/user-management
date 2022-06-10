@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,10 +26,6 @@ class RegisterRequest extends FormRequest
         return [
             'firstname' => 'required',
             'lastname' => 'required',
-            'id_role' => 'required',
-            'email' => 'required|unique:users',
-            'password' => 'required|same:confirm',
-            'confirm' => 'required'
         ];
     }
 
@@ -38,9 +34,6 @@ class RegisterRequest extends FormRequest
         return [
             'firstname.required' => 'Please fill the firstname',
             'lastname.required' => 'Please fill the lastname',
-            'email.unique' => 'Email already exists',
-            'password.required' => "Please fill the password",
-            'confirm.confirmed' => "Password does not match",
         ];
     }
 }
