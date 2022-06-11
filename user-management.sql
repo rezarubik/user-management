@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 11 Jun 2022 pada 06.20
+-- Waktu pembuatan: 11 Jun 2022 pada 06.30
 -- Versi server: 10.4.17-MariaDB
 -- Versi PHP: 7.4.14
 
@@ -155,7 +155,22 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
 (1, 'Super Admin', 'web', '2022-06-10 12:38:47', '2022-06-10 12:38:47'),
-(2, 'Operational', 'web', '2022-06-10 12:56:23', '2022-06-10 12:56:23');
+(2, 'Operational', 'web', '2022-06-10 12:56:23', '2022-06-10 12:56:23'),
+(21, 'Admin', 'web', '2022-06-11 04:29:21', '2022-06-11 04:29:21'),
+(22, 'Sales', 'web', '2022-06-11 04:29:21', '2022-06-11 04:29:21'),
+(23, 'Sales Admin', 'web', '2022-06-11 04:29:21', '2022-06-11 04:29:21'),
+(24, 'Finance', 'web', '2022-06-11 04:29:21', '2022-06-11 04:29:21'),
+(25, 'Purchasing', 'web', '2022-06-11 04:29:21', '2022-06-11 04:29:21'),
+(26, 'Warehouse', 'web', '2022-06-11 04:29:21', '2022-06-11 04:29:21'),
+(27, 'Sales Manager', 'web', '2022-06-11 04:29:21', '2022-06-11 04:29:21'),
+(28, 'COO', 'web', '2022-06-11 04:29:21', '2022-06-11 04:29:21'),
+(29, 'QC', 'web', '2022-06-11 04:29:21', '2022-06-11 04:29:21'),
+(30, 'Manager', 'web', '2022-06-11 04:29:21', '2022-06-11 04:29:21'),
+(31, 'Technician', 'web', '2022-06-11 04:29:21', '2022-06-11 04:29:21'),
+(32, 'Web Developer', 'web', '2022-06-11 04:29:21', '2022-06-11 04:29:21'),
+(33, 'Dev Ops', 'web', '2022-06-11 04:29:21', '2022-06-11 04:29:21'),
+(34, 'Surveyor', 'web', '2022-06-11 04:29:21', '2022-06-11 04:29:21'),
+(35, 'Courier', 'web', '2022-06-11 04:29:21', '2022-06-11 04:29:21');
 
 -- --------------------------------------------------------
 
@@ -331,7 +346,7 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT untuk tabel `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
