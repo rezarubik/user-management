@@ -31,7 +31,7 @@ class PermissionController extends Controller
         }
         try {
             DB::beginTransaction();
-            $permissions = SpatiePermission::orderBy('created_at', 'desc')->get();
+            $permissions = SpatiePermission::latest()->filter(request(['search']))->paginate(5)->withQueryString();
             DB::commit();
             return view('dashboard.permissions.index', compact('permissions'));
         } catch (\Throwable $th) {

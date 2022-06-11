@@ -29,14 +29,14 @@ class RoleController extends Controller
     /**
      * NOTE: Display in Dashboard
      */
-    public function index_dashboard()
+    public function index()
     {
         if ($this->getPermission()['view roles']->isEmpty()) {
             abort(403, 'Unauthorized action.');
         }
         try {
             DB::beginTransaction();
-            $roles = Role::all();
+            $roles = Role::latest()->filter(request(['search']))->paginate(5)->withQueryString();
             DB::commit();
             return view('dashboard.roles.index', compact('roles'));
         } catch (\Throwable $th) {

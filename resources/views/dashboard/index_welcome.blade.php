@@ -12,6 +12,12 @@
                         <div class="col-auto mx-auto">
                             Welcome <b> {{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</b>!
                             <br>
+                            You role {{ count(Auth::user()->roles) > 1 ? 'are:' : 'is:' }}
+                            <ul>
+                                @foreach(Auth::user()->roles as $role)
+                                <li> {{ $role->name }} </li>
+                                @endforeach
+                            </ul>
                         </div>
                     </div>
                 </div>

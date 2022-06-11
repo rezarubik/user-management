@@ -68,7 +68,19 @@
                             <td>{{$user->firstname}}</td>
                             <td>{{$user->lastname}}</td>
                             <td>{{$user->email}}</td>
-                            <td>Role</td>
+                            <td>
+                                @if($user->roles->count())
+                                <ul>
+                                    @foreach($user->roles as $role_user)
+                                    <li>
+                                        {{$role_user->name}}
+                                    </li>
+                                    @endforeach
+                                </ul>
+                                @else
+                                <p class="text-danger">Haven't role</p>
+                                @endif
+                            </td>
                             <td>{{$user->is_verify}}</td>
                             <td>{{$user->created_at}}</td>
                             <td class="text-center">
@@ -112,10 +124,32 @@
                     </tbody>
                 </table>
                 @else
-                <p class="text-center">Data not found</p>
+                <table class="table table-bordered rolesTable" id="rolesTable" width="100%" cellspacing="0">
+                    <thead>
+                        <th>Name</th>
+                        <th>Created At</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="3">
+                                <p class="text-center text-danger">Data not found</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
                 @endif
                 <div class="d-flex justify-content-end">
                     {{ $users->links() }}
+                </div>
+                <div class="d-flex justify-content-left">
+                    Current Page: {{ $users->currentPage() }}
+                </div>
+                <div class="d-flex justify-content-left">
+                    Total Data: {{ $users->total() }}
+                </div>
+                <div class="d-flex justify-content-left">
+                    Per Page: {{ $users->perPage() }}
                 </div>
             </div>
 

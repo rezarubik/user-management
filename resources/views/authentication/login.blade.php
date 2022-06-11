@@ -73,9 +73,6 @@
                                         </button>
                                     </form>
                                     <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                    </div>
-                                    <div class="text-center">
                                         <a class="small" href="{{route('register_form')}}">Create an Account!</a>
                                     </div>
                                 </div>

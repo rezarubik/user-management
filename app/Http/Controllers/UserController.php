@@ -33,7 +33,8 @@ class UserController extends Controller
         if ($this->getPermission()['view users']->isEmpty()) {
             abort(403, 'Unauthorized action.');
         }
-        $users = User::latest()->filter(request(['search']))->paginate(3)->withQueryString();
+        $users = User::with(['roleUser', 'roleUser.role'])->latest()->filter(request(['search']))->paginate(3)->withQueryString();
+        // return $users;
         return view('dashboard.users.index', compact('users'));
     }
 
@@ -197,5 +198,18 @@ class UserController extends Controller
                 'message' =>  $th->getMessage()
             ]);
         }
+    }
+
+    public function verify(Request $request, $validation_code)
+    {
+        $code = $validation_code;
+        if (!User::where('validation_code', $code)->exists()) {
+            return Helper::error('Wrong validation code', '001');
+        }
+        $user = User::where('validation_code', $code)->first();
+        $user->is_verify = true;
+        $user->email_verified_at = now();
+        $user->save();
+        return redirect()->route('thanks');
     }
 }

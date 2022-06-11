@@ -13,9 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+    // return redirect()->route('login');
+});
 
 Route::prefix('auth')->group(function () {
     Route::get('login', 'Auth\LoginController@index')->name('login')->middleware('guest');
@@ -25,6 +26,11 @@ Route::prefix('auth')->group(function () {
     Route::get('register', 'PagesController@register')->name('register_form');
     Route::post('register/store', 'Auth\RegisterController@store')->name('register.store');
 });
+
+Route::get('verify/{validation_code}', 'UserController@verify');
+Route::get('thanks', function () {
+    return view('thanks');
+})->name('thanks');
 
 Route::prefix('dashboard')->middleware('auth')->group(function () {
     // note: Dashboard welcome user operational login
@@ -40,7 +46,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
 
         // todo Management Roles
         Route::prefix('roles')->group(function () {
-            Route::get('/', 'RoleController@index_dashboard')->name('dashboard.role.index');
+            Route::get('/', 'RoleController@index')->name('dashboard.role.index');
             Route::get('edit-permission/{id}', 'RoleController@edit_permission')->name('dashboard.role.edit_permission');
             Route::post('udpate-permission/{id}', 'RoleController@update_permission')->name('dashboard.role.update_permission');
             Route::post('/', 'RoleController@store')->name('dashboard.role.store');

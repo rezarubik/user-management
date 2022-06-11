@@ -36,7 +36,20 @@
             </div>
         </div>
         <div class="card-body">
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-end">
+                    <form action="">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Enter search here.." name="search" value="{{request('search')}}">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <div class="table-responsive">
+                @if($roles->count())
                 <table class="table table-bordered rolesTable" id="rolesTable" width="100%" cellspacing="0">
                     <thead>
                         <th>Name</th>
@@ -118,6 +131,35 @@
                         @endforeach
                     </tbody>
                 </table>
+                @else
+                <table class="table table-bordered rolesTable" id="rolesTable" width="100%" cellspacing="0">
+                    <thead>
+                        <th>Name</th>
+                        <th>Created At</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="3">
+                                <p class="text-center text-danger">Data not found</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                @endif
+
+                <div class="d-flex justify-content-end">
+                    {{ $roles->links() }}
+                </div>
+                <div class="d-flex justify-content-left">
+                    Current Page: {{ $roles->currentPage() }}
+                </div>
+                <div class="d-flex justify-content-left">
+                    Total Data: {{ $roles->total() }}
+                </div>
+                <div class="d-flex justify-content-left">
+                    Per Page: {{ $roles->perPage() }}
+                </div>
             </div>
         </div>
     </div>
@@ -160,14 +202,4 @@
 
 <!-- Page level custom scripts -->
 <!-- <script src="{{asset('assets/js/demo/datatables-demo.js')}}"></script> -->
-
-<script>
-    $(document).ready(function() {
-        $('#rolesTable').DataTable({
-            "aaSorting": [
-                // [3, "desc"]
-            ]
-        });
-    });
-</script>
 @endsection
